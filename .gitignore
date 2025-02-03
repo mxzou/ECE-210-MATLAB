@@ -1,0 +1,14 @@
+# MATLAB files
+assignment02.m
+assignment03.m
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# MATLAB-specific files
+*.asv
+*.m~
