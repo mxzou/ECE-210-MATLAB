@@ -1,66 +1,51 @@
-% UNSTYLED
+% Define constants for the simulation and set the random seed
+ITERATIONS = 1e6;          % Total number of simulations to run (1,000,000)
+CREWMATES = 6;             % Number of crewmates in each simulation (6)
+ROUNDS = 12;               % Number of rounds in each simulation (12)
+CREWMATE_SIDES = 4;        % Crewmate resistance is 1 to 4 (like a 4-sided die)
+IMPOSTER_ROLLS = 2;        % Imposter rolls 2 dice to get sus ability
+IMPOSTER_SIDES = 2;        % Each imposter die has 2 sides (1 or 2)
+rng(0x73757300);           % Set random seed so results are the same every time (reproducibility)
 
-% SPDX-License-Identifier: GPL-3.0-or-later
-%
-% assignment03.m -- Third homework simulating Among Us game scenarios
-% Copyright (C) 2024 Your Name <your.email@example.com>
+% Create a matrix of crewmate resistances (6 crewmates x 1,000,000 iterations)
+% Each crewmate gets a random resistance value between 1 and 4
+crewmates = randi(CREWMATE_SIDES, CREWMATES, ITERATIONS);
 
-% Initialize constants as provided
-ITERATIONS = 1e6;
-CREWMATES = 6;
-ROUNDS = 12;
-CREWMATE_SIDES = 4;
-IMPOSTER_ROLLS = 2;
-IMPOSTER_SIDES = 2;
+% Generate the imposter's sus ability for each round (12 rounds x 1,000,000 iterations)
+% Sus ability is the sum of two 2-sided die rolls (values 2, 3, or 4)
+sus = randi(IMPOSTER_SIDES, ROUNDS, ITERATIONS) + randi(IMPOSTER_SIDES, ROUNDS, ITERATIONS);
 
-% Set random seed for reproducibility
-rng(0x73757300);
+% Decide which crewmate the imposter targets each round (12 rounds x 1,000,000 iterations)
+% Targets are random numbers from 1 to 6, picking one of the 6 crewmates
+targets = randi(CREWMATES, ROUNDS, ITERATIONS);
 
-% 1. Generate random matrices for game events
-% Create crewmate sus resistance (one d4 roll per crewmate per iteration)
-crewmates = randi(CREWMATE_SIDES, [CREWMATES, ITERATIONS]);
+% Get the resistance of the crewmate targeted in each round
+% This uses linear indexing: calculates the position in the crewmates matrix for each target
+% (repmat(1:ITERATIONS, ROUNDS, 1) - 1) * CREWMATES + targets finds the exact spot
+targeted_resistances = crewmates((repmat(1:ITERATIONS, ROUNDS, 1) - 1) * CREWMATES + targets);
 
-% Generate imposter sus ability (sum of two d2 rolls per iteration)
-imposter_rolls = randi(IMPOSTER_SIDES, [IMPOSTER_ROLLS, ITERATIONS]);
-sus = sum(imposter_rolls, 1);
+% Check where the imposter’s sus beats the targeted crewmate’s resistance
+% Returns a 12x1,000,000 logical matrix (true where sus > resistance, false otherwise)
+potential_kills = sus > targeted_resistances;
 
-% Generate random targets for each round and iteration
-targets = randi(CREWMATES, [ROUNDS, ITERATIONS]);
+% Build a mask showing when each crewmate was targeted
+% Reshape targets to 12x1x1,000,000 and compare to 1:6 (reshaped to 1x6x1)
+% Result is 12x6x1,000,000: true where a crewmate was the target in that round
+target_mask = reshape(targets, [ROUNDS, 1, ITERATIONS]) == reshape(1:CREWMATES, [1, CREWMATES, 1]);
 
-% 2. Create kills matrix
-% Initialize kills matrix to track who dies when
-kills = false(CREWMATES, ITERATIONS);
+% Find actual kills by combining the target mask with potential kills
+% 12x6x1,000,000 logical array: true where a crewmate was targeted AND sus > resistance
+kill_attempts = target_mask & reshape(potential_kills, [ROUNDS, 1, ITERATIONS]);
 
-% For each round, determine if target dies
-for round = 1:ROUNDS
-    % Get current targets for this round
-    current_targets = targets(round, :);
-    % Get sus resistance of current targets
-    target_resistance = crewmates(sub2ind(size(crewmates), ...
-        current_targets, 1:ITERATIONS));
-    % Determine if kill is successful (imposter sus > target resistance)
-    successful_kills = sus > target_resistance;
-    % Only count kills if target hasn't been killed yet
-    valid_targets = ~any(kills(current_targets, :), 1);
-    % Update kills matrix
-    kills(sub2ind(size(kills), current_targets, 1:ITERATIONS)) = ...
-        successful_kills & valid_targets;
-end
+% Check if each crewmate was killed at least once across the 12 rounds
+% any() looks along rounds (dimension 1), then squeeze makes it 6x1,000,000
+% True means that crewmate was killed at least once in that iteration
+kills = squeeze(any(kill_attempts, 1));
 
-% 3. Create survivors matrix
-% A crewmate survives if they weren't killed
+% Identify survivors: flip the kills matrix (true where crewmates weren’t killed)
 survivors = ~kills;
 
-% 4. Calculate loss rate
-% A loss occurs if 1 or fewer crewmates survive
+% Count survivors per iteration and calculate the loss probability
+% sum(survivors, 1) gives number of survivors in each iteration (1x1,000,000 vector)
+% <= 1 checks for 0 or 1 survivors (a loss), mean gives the fraction of losses
 loss_rate = mean(sum(survivors, 1) <= 1);
-
-% Display result
-fprintf('Loss rate: %.4f\n', loss_rate);
-
-% Verify result matches expected value
-if abs(loss_rate - 0.1174) < 1e-4
-    disp('Success! Loss rate matches expected value.');
-else
-    warning('Loss rate does not match expected value!');
-end

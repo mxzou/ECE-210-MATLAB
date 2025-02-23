@@ -1,7 +1,3 @@
-# MATLAB files
-assignment02.m
-assignment03.m
-
 # macOS system files
 .DS_Store
 .DS_Store?
@@ -12,3 +8,12 @@ assignment03.m
 # MATLAB-specific files
 *.asv
 *.m~
+
+# Environment folders
+env/
+.env/
+venv/
+.venv/
+
+# DS_Store in home solutions
+home_solutions/**/.DS_Store

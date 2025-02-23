@@ -19,24 +19,9 @@ This repository contains MATLAB assignments and solutions for Jacob Koziej's ECE
 2. Navigate to the solution directory
 3. Run the desired .m file
 
-## Contributing
+### Style Checking
 
-Please follow these steps to contribute:
+To check your code style (with MISS_HIT locally installed)
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-If you have any questions, please open an issue in this repository.
-
-## Acknowledgments
-
-- Thanks to all contributors who have helped with the assignments 
+1. Open MATLAB
+2. Run `mh_style` on your file:
