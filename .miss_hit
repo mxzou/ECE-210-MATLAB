@@ -1,0 +1,12 @@
+# MISS_HIT Configuration File
+project_root = .
+
+# Style rules
+line_length = 80
+copyright_entity = "Senik Zou"
+tab_width = 4
+regex_script_name = "^assignment_[a-z0-9_]+$"
+
+# Metrics limits
+metric "cnest" : limit 5
+metric "file_length" : limit 500 
