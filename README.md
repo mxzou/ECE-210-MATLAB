@@ -13,6 +13,7 @@ This repository contains MATLAB assignments and solutions for Jacob Koziej's ECE
   - `assignment_five.m` - Solution for Assignment 5
   - `assignment_six.m` - Solution for Assignment 6
   - `assignment_seven.m` - Solution for Assignment 7
+  - `assignment_eight.m` - Solution for Assignment 8
 - `school materials/assignments/` - Course assignment PDFs
 
 ## Getting Started
