@@ -19,6 +19,10 @@ This repository contains MATLAB assignments and solutions for Jacob Koziej's ECE
 - Python 3.7+ (for development tools)
 - pyenv (recommended for Python version management)
 
+### Usage
+
+`source ~/.venv/miss_hit/bin/activate && cd "home solutions" && mh_style assignment_five.m` - to very quickly find the pattern.
+
 ## Development Setup
 
 ### Setting up Development Environment
@@ -44,6 +48,7 @@ source ~/.zshrc
 1. Open MATLAB
 2. Navigate to the solution directory
 3. Run the desired .m file
+4. or use in the specific directory use `matlab -batch "assignment_four"`
 
 ### Style Checking
 
@@ -52,6 +57,10 @@ The repository includes a `.miss_hit` configuration file that ensures consistent
 To check your code style:
 ```bash
 mh_style assignment_*.m
+```
+or
+```bash
+mh_style "home solutions/assignment_four.m"
 ```
 
 Style rules include:
