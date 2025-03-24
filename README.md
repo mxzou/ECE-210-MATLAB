@@ -9,6 +9,10 @@ This repository contains MATLAB assignments and solutions for Jacob Koziej's ECE
   - `assignment_one.m` - Solution for Assignment 1
   - `assignment_two.m` - Solution for Assignment 2
   - `assignment_three.m` - Solution for Assignment 3
+  - `assignment_four.m` - Solution for Assignment 4
+  - `assignment_five.m` - Solution for Assignment 5
+  - `assignment_six.m` - Solution for Assignment 6
+  - `assignment_seven.m` - Solution for Assignment 7
 - `school materials/assignments/` - Course assignment PDFs
 
 ## Getting Started
@@ -21,7 +25,7 @@ This repository contains MATLAB assignments and solutions for Jacob Koziej's ECE
 
 ### Usage
 
-`source ~/.venv/miss_hit/bin/activate && cd "home solutions" && mh_style assignment_five.m` - to very quickly find the pattern.
+`source ~/.venv/miss_hit/bin/activate && cd "home solutions" && mh_style assignment_*.m` - to very quickly find the pattern.
 
 ## Development Setup
 
