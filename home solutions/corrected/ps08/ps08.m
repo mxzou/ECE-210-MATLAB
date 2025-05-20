@@ -1,7 +1,5 @@
 %% ECE 210 - Assignment 08: Corrected Code with Explanations
-% This script addresses the problems from Assignment 08, focusing on using
-% the MATLAB Symbolic Math Toolbox for algebraic manipulation, solving
-% differential equations, and high-precision evaluation.
+% Note: used with the help of MATLAB docs + Grok
 
 % Housekeeping commands
 clc;

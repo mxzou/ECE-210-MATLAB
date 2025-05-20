@@ -1,7 +1,5 @@
 %% ECE 210 - Assignment 06: Corrected Code with Explanations
-% This script addresses the problems from Assignment 06, incorporating
-% corrections based on the assignment requirements, common signal processing
-% practices, and the provided solution key.
+% Note: used with the help of MATLAB docs + Grok
 
 % Housekeeping commands
 clc;

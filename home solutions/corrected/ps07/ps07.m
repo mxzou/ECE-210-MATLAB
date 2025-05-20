@@ -1,8 +1,5 @@
 %% ECE 210 - Assignment 07: Corrected Code with Explanations
-% This script addresses the problems from Assignment 07, focusing on reading
-% real-world ADC data, performing frequency analysis, designing an elliptic
-% filter, and applying it. Corrections are based on the assignment
-% requirements and the provided solution key.
+% Note: used with the help of MATLAB docs + Grok
 
 % Housekeeping commands
 clc;

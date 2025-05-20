@@ -1,6 +1,5 @@
-%% ECE 210 - Assignment 05: Corrected Code with Explanations
-% This script addresses the problems from Assignment 05, incorporating
-% corrections based on common practices and the provided solution key.
+%% ECE 210 - Assignment 05: corrected code with explanations
+% Note: used with the help of MATLAB docs + Grok
 
 % Housekeeping commands (Good practice to include at the start) [cite: 1]
 clc;     % Clears the command window
