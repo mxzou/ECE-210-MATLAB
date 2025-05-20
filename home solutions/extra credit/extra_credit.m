@@ -2,6 +2,7 @@
 % This script implements a basic image compression scheme based on
 % dividing an image into 8x8 blocks, applying the 2D DCT, quantizing
 % coefficients, and reconstructing the image.
+% Note: used with the help of MATLAB docs + Grok
 
 % Housekeeping
 clear;
